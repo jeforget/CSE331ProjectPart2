@@ -30,22 +30,24 @@ class Solution:
         
         bandwidths = self.info["bandwidths"]
         tolerance = self.info["alphas"]
-        b_weight = 550
-        t_weight = 550
+        payments = self.info["payments"]
+        b_weight = 3000000
+        t_weight = 3000000
+      
         for i in bandwidths.keys():
             if bandwidths[i]<b_weight:
                 bandwidths[i] = b_weight       
         for i in tolerance.keys():
             if tolerance[i]<t_weight:
                 tolerance[i] = t_weight             
-
+     
         
         for clients in list_clients[::-1]:
             new_path = []
             final_path = []
             visited_lst = {clients: 1}
             pq = [(0, [clients])]
-            nodes_at_zero = {}
+            
             while pq:
                 tuple = heapq.heappop(pq)
                 d = tuple[0]
@@ -67,7 +69,7 @@ class Solution:
                       
                       break
                     
-                    if visited_lst.get(neighbor,0) == 0 and bandwidths[neighbor] != 0:
+                    if visited_lst.get(neighbor,0) == 0:
                      
                         new_path = path.copy()
                           
@@ -81,12 +83,9 @@ class Solution:
                        
             
                 
-            for i in final_path:
-                    
-                if(i != clients):
-                    bandwidths[i] = bandwidths[i] - 1
+       
             paths[clients] = final_path[::-1]
-            print("Path for client " + str(clients) + " is " + str(paths[clients]))
+           
            
           
                     
