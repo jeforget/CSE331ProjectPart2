@@ -71,7 +71,7 @@ class Driver:
         revenue = Revenue().revenue([client_object for client_object in simulator.get_clients(list_clients).values()], alphas, betas, shortest_delays,
                                     payments, lawsuit, rho_lawsuit, fcc_fine, rho_fcc, is_fcc, apply_pen_1, apply_pen_2, bandwidths, info["bandwidths"], cost_bandwidth, self.problem)
 
-        return revenue
+        return client_delays
 
 
 Driver()
