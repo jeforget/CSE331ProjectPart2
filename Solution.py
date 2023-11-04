@@ -21,25 +21,38 @@ class Solution:
         graph = self.graph
         isp = self.isp
 
+        
+
      
         
         list_clients = self.info["list_clients"]
     
-  
+        
         bandwidths = self.info["bandwidths"]
+        tolerance = self.info["alphas"]
+        b_weight = 550
+        t_weight = 550
+        for i in bandwidths.keys():
+            if bandwidths[i]<b_weight:
+                bandwidths[i] = b_weight       
+        for i in tolerance.keys():
+            if tolerance[i]<t_weight:
+                tolerance[i] = t_weight             
+
+        
         for clients in list_clients[::-1]:
             new_path = []
             final_path = []
             visited_lst = {clients: 1}
             pq = [(0, [clients])]
-            
+            nodes_at_zero = {}
             while pq:
                 tuple = heapq.heappop(pq)
                 d = tuple[0]
                 path = tuple[1] 
                 
                 visited_lst[path[d]] = 1
-               
+                
                 
                 
                
@@ -63,8 +76,11 @@ class Solution:
                         new_d = d + 1
                     
                         heapq.heappush(pq,(new_d, new_path))
+                   
+
                        
-                      
+            
+                
             for i in final_path:
                     
                 if(i != clients):
